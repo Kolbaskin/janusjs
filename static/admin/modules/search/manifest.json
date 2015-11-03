@@ -1,0 +1,5 @@
+{ 
+    "name": "Search", 
+    "module": "search", 
+    "controller": "Desktop.modules.search.controller.Search" 
+}

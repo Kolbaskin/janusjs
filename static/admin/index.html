@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html manifest="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Janus-admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="../fa/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/desktop.css" />
+    <link rel="stylesheet" type="text/css" href="css/users.css" />
+    <!--<link rel="stylesheet" type="text/css" href="ext/src/ux/grid/css/app.css" />-->
+
+    <script type="text/javascript" src="tinymce/tinymce.min.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script type="text/javascript" src="ext/examples/shared/include-ext.js"></script>
+    <script type="text/javascript" src="ext/bugfixes.js"></script>
+
+</head>
+
+<body>
+<script type="text/javascript">
+    
+    
+    
+    function dhtmlLoadScript(url) {
+       var e = document.createElement("script");
+       e.src = url;
+       e.type="text/javascript";
+       document.getElementsByTagName("head")[0].appendChild(e); 
+    }
+    
+    var l = localStorage.getItem('locale');
+    if(!l || l.length!=2) l='en';
+    
+    LOCALE = {}
+    TEXTS = {}
+    if(l) {    
+        dhtmlLoadScript('ext/locale/ext-lang-' + l + '.js')
+        dhtmlLoadScript('locale/total/' + l + '.js')
+        dhtmlLoadScript('locale/' + l + '.js')
+        dhtmlLoadScript('starter.js?')
+        dhtmlLoadScript('D.js?')
+    }
+    
+    
+</script>
+</body>
+</html>

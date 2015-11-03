@@ -1,0 +1,6 @@
+{ 
+    "name": "Новости", 
+    "iconCls": "news", 
+    "module": "News", 
+    "controller": "Crm.modules.news.controller.News"
+}

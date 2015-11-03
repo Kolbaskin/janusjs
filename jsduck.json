@@ -1,0 +1,9 @@
+{
+    "--title": "Yanusjs",
+    "--output": "static/docs",
+    "--": [
+        "static/admin/core",
+        "static/admin/js",
+        "src/Core"
+    ]
+}

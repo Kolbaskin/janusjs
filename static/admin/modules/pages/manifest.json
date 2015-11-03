@@ -1,0 +1,5 @@
+{ 
+    "name": "Site settings", 
+    "module": "pages", 
+    "controller": "Desktop.modules.pages.controller.Main" 
+}

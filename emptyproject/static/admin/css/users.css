@@ -1,0 +1,124 @@
+/* user's css */
+.calcell {vertical-align: top !important;padding-top:2px;}
+.calcell div {padding:0 !important;}
+.sel-cell {background-color: #A3CAE6!important;}
+.test-icon {background: url('img/32_bit.png')!important;}
+
+.control {background: url('img/control.png') no-repeat center center !important;}
+.control-double {background: url('img/control-double.png')  no-repeat center center !important;}
+.control-180 {background: url('img/control-180.png')  no-repeat center center !important;}
+.control-double-180 {background: url('img/control-double-180.png')  no-repeat center center !important;}
+.scheduller {background: url('img/calendar_view_week.png')  no-repeat center center !important;}
+.scheduller-32 {background: url('img/32/calendar_view_week.png')  no-repeat center center !important;}
+.building {background: url('img/building.png')  no-repeat center center !important;}
+.building-32 {background: url('img/32/building.png')  no-repeat center center  !important;}
+
+.hotel-icon {background: url('img/building.png')  no-repeat center center !important;}
+.roomtype-icon {background: url('img/doors.png')  no-repeat center center !important;}
+.room-icon {background: url('img/door.png')  no-repeat center center !important;}
+
+.bookings {background: url('img/flag_1.png')  no-repeat center center !important;}
+.bookings-32 {background: url('img/32/flag_1.png')  no-repeat center center !important;}
+
+.clients {background: url('img/reseller_programm.png')  no-repeat center center !important;}
+.clients-32 {background: url('img/32/reseller_programm.png')  no-repeat center center !important;}
+
+.private {background: url('img/user.png')  no-repeat center center !important;}
+.private-32 {background: url('img/32/user.png')  no-repeat center center !important;}
+
+.corporate {background: url('img/ceo.png')  no-repeat center center !important;}
+.corporate-32 {background: url('img/32/ceo.png')  no-repeat center center !important;}
+
+.holidays {background: url('img/emotion_smile.png')  no-repeat center center !important;}
+.holidays-32 {background: url('img/32/emotion_smile.png')  no-repeat center center !important;}
+
+.documents {background: url('img/document_copies.png')  no-repeat center center !important;}
+.documents-32 {background: url('img/32/document_copies.png')  no-repeat center center !important;}
+
+.comunity {background: url('icons/user_comment.png')  no-repeat center center !important;}
+.comunity-32 {background: url('icons/32/user_comment.png')  no-repeat center center !important;}
+
+.messenger {background: url('icons/qip_online.png')  no-repeat center center !important;}
+.messenger-32 {background: url('icons/32/qip_online.png')  no-repeat center center !important;}
+
+.comment {background: url('icons/comment.png')  no-repeat center center !important;}
+.comment-32 {background: url('icons/32/comment.png')  no-repeat center center !important;}
+
+.yodemail {background: url('icons/email.png')  no-repeat center center !important;}
+.yodemail-32 {background: url('icons/32/email.png')  no-repeat center center !important;}
+
+.tasks {background: url('icons/sheduled_task.png')  no-repeat center center !important;}
+.tasks-32 {background: url('icons/32/sheduled_task.png')  no-repeat center center !important;}
+
+
+.docs {background: url('icons/document-text-image.png')  no-repeat center center !important;}
+.docs-32 {background: url('icons/32/blue-document-text-image.png')  no-repeat center center !important;}
+
+.shopping {background: url('icons/shopping.png')  no-repeat center center !important;}
+.shopping-32 {background: url('icons/32/shopping.png')  no-repeat center center !important;}
+
+.news {background: url('icons/newspaper_go.png')  no-repeat center center !important;}
+.news-32 {background: url('icons/32/newspaper_go.png')  no-repeat center center !important;}
+
+
+
+.attach {background: url('icons/attach.png')  no-repeat center center !important;}
+
+
+.bline {
+display: block;
+width: 300px;
+height: 30px;
+position: absolute;
+margin: 0 0 0 5px;
+background: #4DE978;
+text-decoration: none;
+text-align: center;
+color: #333;
+vertical-align: center;
+  }
+  
+
+.rarrow:after {
+left: 100%;
+position: absolute;
+content: "";
+width: 0;
+top:0;
+border: 15px solid transparent;
+border-left: 5px solid #4DE978;
+}
+    
+.larrow:before {
+right: 100%;
+position: absolute;
+content: "";
+width: 0;
+border: 15px solid transparent;
+border-right: 5px solid #4DE978;
+} 
+
+.bline span {
+    display: block;
+    margin: auto;    
+}
+
+.weekend {
+    color: red !important;    
+}
+
+.disabledRoom {
+    color: #999 !important;    
+}
+
+td.messtext div {
+    white-space: normal !important;    
+}
+
+.smallText {
+    font-size: 12px !important;    
+}
+
+.unread {
+    font-weight: bold !important;    
+}

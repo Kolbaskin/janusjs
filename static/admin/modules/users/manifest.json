@@ -1,0 +1,5 @@
+{ 
+    "name": "My Users", 
+    "module": "users", 
+    "controller": "Desktop.modules.users.controller.Main" 
+}

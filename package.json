@@ -1,0 +1,68 @@
+{
+  "name": "janusjs",
+  "version": "0.0.1",
+  "author": "Max Tushev <maximtushev@gmail.com>",
+  "description": "Yanusjs is a web-framework where the client and server based on extjs",
+  "contributors": [ 
+    {
+      "name": "Max Tushev",
+      "email": "maximtushev@gmail.com"
+    } 
+  ],
+  "scripts": {
+    "postinstall": "node ./setup"
+  },
+
+  "main": "./index",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/Kolbaskin/bonvenon"
+  },
+  "keywords": [
+    "http",
+    "server",
+    "crm",
+    "cms",
+    "extjs",
+    "framework"
+  ],
+  "dependencies" : {
+    "bson" :  "0.2.15",
+    "cluster"    :  "0.7.7",
+    "daemon" :  "1.1.0",
+    "easyimage": "0.1.6",
+    "elasticsearch" :  "3.1.1",
+    "entities": "1.1.1",
+    "exec": "0.1.2",
+    "fs-extra": "0.18.2",
+    "htmlstrip-native": "0.0.6",
+    "password-generator": "*",
+    "mongodb": "1.4.12",
+    "memcache": "0.3.0",
+    "multipart": "*",
+    "msexcel-builder": "*",
+    "nodemailer": "0.6.1",    
+    "jsonfile": "2.0.0",
+    "ps-node": "0.0.4",
+    "request": "2.27.0",
+    "stream-buffers": "1.0.0",
+    "websocket": "1.0.10",
+    "winston": "1.0.0",
+    "ncp": "0.4.2",
+    "rimraf": "2.2.8",
+    "readline": "*",
+    "formidable": "1.0.14"
+  },
+  "analyze": false,
+
+  "bundledDependencies": [
+    "extjs-node",
+    "http_codes",
+    "node-static",
+    "proto_correct",
+    "transactions",
+    "yode-validator"
+  ],  
+
+  "license": "LGPL-2"  
+}

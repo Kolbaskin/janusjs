@@ -1,0 +1,693 @@
+/*!
+* Ext JS Library 4.0
+* Copyright(c) 2006-2011 Sencha Inc.
+* licensing@sencha.com
+* http://www.sencha.com/license
+*/
+
+#poweredby {
+    position: absolute;
+    bottom: 40px;
+    right: 20px;
+    z-index: 15000;
+
+    /* IE 5-7 */
+    filter: alpha(opacity=70);
+    /* Netscape */
+    -moz-opacity: 0.7;
+    /* Safari 1.x */
+    -khtml-opacity: 0.7;
+    /* Good browsers */
+    opacity: 0.7;
+}
+
+#poweredby div {
+    position: relative;
+    width: 150px;
+    height: 25px;
+    background-image: url(../images/powered-by-ext-js.png);
+    background-repeat: no-repeat;
+}
+
+/* The simple background image PNG does not work in IE6-8, but does in IE9 */
+.x-ie6 #poweredby div,
+.x-ie7 #poweredby div,
+.x-ie8 #poweredby div {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/powered-by-ext-js.png', sizingMethod='scale');
+}
+
+/*----------------------------------------------------
+    Start Button
+*/
+
+.ux-start-button-icon {
+    background-image: url(../images/taskbar/sencha.gif) !important;
+    background-color: transparent;
+}
+
+.ux-start-button .x-btn-arrow {
+    background-image: none;
+}
+
+.ux-taskbar {
+    padding-left: 4px !important;
+}
+
+/*
+    Start Button (Black)
+*/
+
+.ux-desktop-black .ux-start-button {
+    height: 28px;
+    padding: 0px;
+    display: block;
+}
+
+.ux-desktop-black .ux-start-button em {
+    margin-top: 5px;
+}
+
+.ux-desktop-black .ux-start-button .x-btn-inner {
+    color: black;
+    font-size:11px;
+    font-weight: bold;
+}
+
+.ux-desktop-black .ux-start-button {
+    background-image: -moz-linear-gradient(center top , #E4F3FF, #D9EDFF 48%, #C2D8F2 52%, #C6DCF6);
+    border-radius: 8px 8px 8px 8px;
+    border-color: #81A4D0;
+}
+
+/*----------------------------------------------------
+    Start Menu
+*/
+
+.ux-start-menu-toolbar .x-btn-inner {
+    text-align: left;
+}
+
+.ux-start-menu-toolbar {
+    padding: 4px !important;
+}
+
+/*----------------------------------------------------
+    TaskBar
+*/
+
+/* Use high specificity selector to override default styling*/
+div.ux-taskbar div.x-toolbar {
+    background: transparent none;
+    border: 0 none;
+    padding: 0;
+}
+
+.ux-desktop-windowbar .x-btn-inner,
+.x-nbr .ux-desktop-windowbar .x-btn-icon-text-left button {
+    text-align: left !important;
+}
+
+/*
+    TaskBar (Black)
+*/
+
+.ux-desktop-black .ux-taskbar {
+    background: transparent url('../images/taskbar/black/taskbar-start-panel-bg.gif') repeat-x left top;
+    border-color: transparent;
+    /*height: 30px;*/
+}
+
+.ux-desktop-black .ux-taskbar .x-splitter {
+    background: transparent url(../images/taskbar/black/taskbar-split-h.gif) no-repeat scroll 0 -2px;
+}
+
+.ux-desktop-black .ux-taskbar .x-toolbar-text {
+    color: white !important;
+}
+
+.ux-desktop-black .ux-taskbar .x-btn-default-toolbar-small-over {
+    background-color: yellow;
+}
+
+.ux-desktop-black .ux-taskbar .x-btn-inner {
+    color: white;
+}
+
+.ux-desktop-black .ux-taskbar .x-btn-pressed .x-btn-inner, .ux-taskbar .x-btn-over .x-btn-inner {
+    color: black;
+}
+
+/*----------------------------------------------------
+    Tray Clock
+*/
+
+.ux-desktop-trayclock {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/*----------------------------------------------------
+    Desktop DataView
+*/
+
+.ux-wallpaper {
+    background-color: #3d71b8;
+    background-size: cover;
+    background-position: center;
+}
+
+.ux-wallpaper-tiled {
+    background-repeat: repeat;
+}
+
+.ux-desktop-shortcut {
+    background: rgba(107, 134, 141, 0.34);
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.54);
+}
+
+.ux-desktop-shortcut {
+    cursor: pointer;
+    text-align: center;
+    padding: 4px;
+    margin: 8px;
+    width: 75px;
+    min-height:70px;
+    max-height:100px;
+    float: left;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.ux-desktop-shortcut-icon {
+    margin-left: 0px;
+    width: 32px;
+    height: 32px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    color: #fff;
+    font-size: 20pt;
+    margin: 0 10px 0 10px;
+}
+
+.ux-desktop-shortcut-text {
+    font: normal 10px tahoma,arial,verdana,sans-serif;
+    text-decoration: none;
+    padding-top: 5px;
+    color: white;
+}
+
+.x-view-over {
+    background: rgba(107, 134, 141, 0.74);
+}
+
+
+
+/*----------------------------------------------------
+    Various icon classes
+*/
+
+.accordion-shortcut {
+    background-image: url(../images/im48x48.png);
+}
+
+.cpu-shortcut {
+    background-image: url(../images/statusLarge.png);
+}
+
+.grid-shortcut {
+    background-image: url(../images/grid48x48.png);
+}
+
+.notepad-shortcut {
+    background-image: url(../images/notepadLarge.png);
+    width: 46px;
+    height: 46px;
+}
+
+.x-ie6 .accordion-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/im48x48.png', sizingMethod='scale');
+}
+
+.x-ie6 .cpu-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/statusLarge.png', sizingMethod='scale');
+}
+
+.x-ie6 .grid-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/grid48x48.png', sizingMethod='scale');
+}
+
+.x-ie6 .notepad-shortcut {
+    background-image: none;
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/notepadLarge.png', sizingMethod='scale');
+}
+
+.video {
+    background-image: url(../images/gears.gif);
+}
+
+.bogus {
+    background-image: url( ../images/bogus.png ) !important;
+}
+
+.notepad {
+    background-image: url( ../images/bogus.png ) !important;
+}
+
+.logout {
+    background-image: url( ../images/logout.gif ) !important;
+}
+
+.settings {
+    background-image: url( ../images/gears.gif ) !important;
+}
+
+
+.icon-grid {
+    background-image:url( ../images/grid.png ) !important;
+}
+.add {
+    background:url(../images/icons/fam/add.gif) no-repeat center !important;
+}
+.option {
+    background-image:url(../images/icons/fam/plugin.gif) !important;
+}
+.remove {
+    background-image:url(../images/icons/fam/delete.gif) !important;
+}
+.save {
+    background-image:url(../images/icons/save.gif) !important;
+}
+.accordion {
+    background-image:url(../images/accordian.gif) !important;
+}
+.tabs {
+    background-image:url(../images/tabs.gif) !important;
+}
+
+/*----------------------------------------------------
+    IM window icons
+*/
+
+.user {
+    background-image:url( ../images/icons/fam/user.gif ) !important;
+}
+
+.users {
+    background-image:url( ../images/icons/users.png ) !important;
+}
+
+.user-add {
+    background-image:url(../images/icons/fam/user_add.gif) !important;
+}
+
+.user-delete {
+    background-image:url(../images/icons/fam/user_delete.gif) !important;
+}
+
+.connect {
+    background-image:url(../images/icons/fam/connect.gif) !important;
+}
+
+.user-girl {
+    background-image:url(../images/icons/fam/user_female.gif) !important;
+}
+
+.user-kid {
+    background-image:url(../images/icons/fam/user_green.gif) !important;
+}
+
+.user-suit {
+    background-image:url(../images/icons/fam/user_suit.gif) !important;
+}
+
+.refresh {
+    background-image:url( ../images/icons/arrow_refresh.png ) !important;
+}
+
+.templates {
+    background-image:url( ../images/icons/html.png ) !important;
+}
+.templates-32 {
+    background-image:url( ../images/icons/32/html.png ) !important;
+}
+
+.pages {
+    background-image:url( ../images/icons/blogs-stack.png ) !important;
+}
+.pages-32 {
+    background-image:url( ../images/icons/32/viewstack.png ) !important;
+}
+
+.save {
+    background-image:url( ../images/icons/disk-black.png ) !important;
+}
+
+.view {
+    background-image:url( ../images/icons/globe.png ) !important;
+}
+
+.mainmenu {
+    background-image:url( ../images/icons/ui-menu.png ) !important;
+}
+
+.dirs {
+    background-image:url( ../images/icons/books-stack.png ) !important;
+}
+
+.streets {
+    background-image:url( ../images/icons/address-book.png ) !important;
+}
+.streets-32 {
+    background-image:url( ../images/icons/32/address-book.png ) !important;
+}
+
+.metro {
+    background-image:url( ../images/icons/metro.png ) !important;
+}
+
+.import {
+    background-image:url( ../images/icons/table-import.png ) !important;
+}
+
+.mo {
+    background-image:url( ../images/icons/direction.png ) !important;
+}
+
+.agency {
+    background-image:url( ../images/icons/bank.png ) !important;
+}
+
+.filemanager {
+    background-image:url( ../images/icons/disk.png ) !important;
+}
+.filemanager-32 {
+    background-image:url( ../images/icons/32/disk.png ) !important;
+}
+
+.upload {
+    background-image:url( ../images/icons/drive-upload.png ) !important;
+}
+
+.newitem {
+    background-image:url( ../images/icons/new.png ) !important;
+}
+
+.dlg-openfile {
+    background-image:url( ../images/icons/folderopen1.png ) !important;
+}
+
+.user-admin {
+    background-image:url( ../images/icons/user-worker-boss.png ) !important;
+}
+
+.user-publ {
+    background-image:url( ../images/icons/user-share.png ) !important;
+}
+
+.lock {
+    background-image:url( ../images/icons/lock.png ) !important;
+}
+
+.unlock {
+    background-image:url( ../images/icons/lock_open.png ) !important;
+}
+
+.page-shared {
+    background:url( ../images/icons/globe-share.png ) center center no-repeat !important;
+}
+
+.page-private {
+    background:url( ../images/icons/key.png ) center center no-repeat !important;
+}
+
+.page-in-map {
+    background:url( ../images/icons/marker.png ) center center no-repeat !important;
+}
+
+.regions {
+    background:url( ../images/icons/map.png ) center center no-repeat !important;
+}
+
+.x-tool-toparentwin{
+    background-image: url(../images/icons/marker.png) !important;
+}
+
+.complaints{
+    background-image: url(../images/icons/exclamation.png) !important;
+}
+
+
+.no-readed {font-weight:bold!important;}
+
+.showLabel {
+    display: block;
+    margin: -15px 0 0 100px;
+    background: url(../images/icons/magnifier.png) left center no-repeat;
+    padding-left: 20px;
+    color: #444444;
+}
+
+.prev-page {
+    border:1px solid #9a9a9a;
+    margin: 20px auto 20px auto;
+    padding: 40px;
+    width:1024px;
+    min-height: 1468px;
+    background: #ffffff;
+}
+
+.prev-page img {
+    width: 100%;    
+}
+
+.offline1 {    
+    background-image: url(../images/icons/exclamation1.png) !important;
+}
+
+.online {    
+    background-image: url(../images/icons/accept.png) !important;
+}
+
+.villages {    
+    background-image: url(../images/icons/house-folder.png) !important;
+}
+.businesscenter {    
+    background-image: url(../images/icons/small_business.png) !important;
+}
+
+.newbuildings {    
+    background-image: url(../images/icons/building.png) !important;
+}
+.newbuildings-32 {    
+    background-image: url(../images/icons/32/building.png) !important;
+}
+
+.advertising {    
+    background-image: url(../images/icons/advertising.png) !important;
+}
+.advertising-32 {    
+    background-image: url(../images/icons/32/advertising.png) !important;
+}
+
+.user-group {    
+    background-image: url(../images/icons/group_key.png) !important;
+}
+.user-group-32 {    
+    background-image: url(../images/icons/32/group_key.png) !important;
+}
+.profile {    
+    background-image: url(../images/icons/vcard_edit.png) !important;
+}
+.profile-32 {    
+    background-image: url(../images/icons/32/vcard_edit.png) !important;
+}
+.feedback {    
+    background-image: url(../images/icons/user_comment.png) !important;
+}
+.feedback-32 {    
+    background-image: url(../images/icons/32/user_comment.png) !important;
+}
+
+.dev {    
+    background-image: url(../images/icons/multitool.png) !important;
+}
+.dev-32 {    
+    background-image: url(../images/icons/32/multitool.png) !important;
+}
+
+.seo {    
+    background-image: url(../images/icons/google_custom_search.png) !important;
+}
+.seo-32 {    
+    background-image: url(../images/icons/32/google_custom_search.png) !important;
+}
+
+.ads {    
+    background-image: url(../images/icons/note.png) !important;
+}
+
+.logs {    
+    background-image: url(../images/icons/user_policeman.png) !important;
+}
+.logs-32 {    
+    background-image: url(../images/icons/32/user_policeman.png) !important;
+}
+.restore {    
+    background: url(../images/icons/site_backup_and_restore.png) no-repeat center center !important;
+}
+
+.show-document {    
+    background: url(../images/icons/page_magnifier.png) no-repeat center center !important;
+}
+.show-file {    
+    background: url(../images/icons/page_white_magnify.png) center no-repeat;
+}
+.show-file-32 {    
+    background: url(../images/icons/32/page_white_magnify.png) center no-repeat;
+}
+.debugger {    
+    background: url(../images/icons/bug.png) center no-repeat !important;
+}
+.debugger-32 {    
+    background: url(../images/icons/32/bug.png) center no-repeat;
+}
+
+.x-form-itemselector-add {
+    background-image: url(../images/icons/arrow_right.png) !important;
+}
+
+.x-form-itemselector-remove {
+    background-image: url(../images/icons/arrow_left.png) !important;
+}
+
+.x-form-file-input {
+    height: 100%!important;    
+}
+
+.front-desk-marker {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #555;
+    border-radius: 2px;
+    background: #dfdfdf center center no-repeat;
+}
+
+.cleaning {
+    background-image: url(img/broom.png)  !important;
+}
+
+.change {
+    background-image: url(img/draw_convolve.png)  !important;
+}
+
+/* Super Combobox */
+.x-boxselect.x-form-text {
+    height: auto;
+    cursor: text;
+    padding: 0;
+    overflow-y: hidden;
+}
+.x-boxselect ul.x-boxselect-list {
+    padding: 0;
+    margin: 0 !important;
+}
+ul.x-boxselect-list.x-boxselect-singleselect {
+    white-space: nowrap;
+    overflow: hidden;
+}
+.x-boxselect input {
+	border: none;
+	background: none;
+	line-height: 18px;
+	height: 24px;
+	width: 100%;
+}
+.x-boxselect-input, .x-boxselect-item {
+	display: inline-block;
+	position: relative;
+	*display:inline; /* IE7 */
+	zoom:1; /* IE */
+}
+.x-boxselect-stacked .x-boxselect-item {
+	display: block;
+}
+.x-boxselect-item {
+	-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px; o-border-radius: 6px; khtml-border-radius: 6px; border: 1px solid #CAD8F3;
+	padding: 0px 1px 0px 5px !important;
+	margin: 1px 1px 1px 0;
+	background-color: #DEE7F8;
+	cursor: default;
+}
+.x-field:not(.x-item-disabled) .x-boxselect-item:hover {
+	background: #BBCEF1;
+	border: 1px solid #6D95E0;
+}
+.x-field:not(.x-item-disabled) .x-boxselect-item.selected {
+	border: 1px solid #316AD3 !important;
+	background: #658FDC !important;
+}
+.x-boxselect-item-text {
+	line-height: 16px;
+	padding-right: 20px !important;
+}
+.x-boxselect-item-close {
+	cursor: pointer;
+}
+.x-boxselect-hideselections .x-boundlist-selected {
+    display: none;
+}
+
+.x-boxselect-item-close {
+    top: 3px !important;    
+}
+
+.x-boxselect-item {
+    -webkit-border-radius: 3px !important;
+    border-radius: 3px !important;
+    o-border-radius: 3px !important;
+    khtml-border-radius: 3px !important;
+    border: 1px solid #D5D5D5 !important;
+    padding: 2px 1px 2px 5px !important;
+    background-color: #FFFFFF !important;
+    margin: 1px 2px 1px 2px !important;
+}
+
+
+
+.search {background: url('img/binocular.png')  no-repeat center center !important;}
+.search-32 {background: url('img/32/binocular.png')  no-repeat center center !important;}
+
+.global-loading {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(210, 210, 210, 0.5) url(../images/loader.gif) center center no-repeat;
+    z-index: 2147483647;
+}   
+
+.x-btn-button-default-toolbar-medium .fa {
+    padding-top: 6px;    
+}
+
+.x-btn-button-default-toolbar-small .fa {
+    padding: 2px 0 0 2px;    
+}
+
+.x-btn-button-default-small .fa:before, .x-btn-button-default-medium .fa:before {
+    color: #ffffff;    
+}
+
+.x-border-layout-ct{
+    background-color: #ffffff!important;
+}
