@@ -88,8 +88,6 @@ Ext.onReady(function () {
         
     });
     
-    
-    /*
     Ext.define('Ext.form.field.Date', {
         extend: 'Ext.form.field.Date',
         initComponent: function(cfg) {
@@ -117,7 +115,7 @@ Ext.onReady(function () {
             this.uncheckedValue = false
         }
     })
-     */
+
     Ext.override(Ext.util.Renderable, {
         afterRender : function() {
             var me = this,

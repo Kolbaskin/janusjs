@@ -1,6 +1,6 @@
 {
   "name": "janusjs",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": "Max Tushev <maximtushev@gmail.com>",
   "description": "Yanusjs is a web-framework where the client and server based on extjs",
   "contributors": [ 
@@ -16,7 +16,7 @@
   "main": "./index",
   "repository": {
     "type": "git",
-    "url": "https://bitbucket.org/Kolbaskin/bonvenon"
+    "url": "https://github.com/Kolbaskin/janusjs"
   },
   "keywords": [
     "http",
@@ -35,7 +35,6 @@
     "entities": "1.1.1",
     "exec": "0.1.2",
     "fs-extra": "0.18.2",
-    "htmlstrip-native": "0.0.6",
     "password-generator": "*",
     "mongodb": "1.4.12",
     "memcache": "0.3.0",
