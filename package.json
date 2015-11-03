@@ -2,7 +2,7 @@
   "name": "janusjs",
   "version": "0.0.3",
   "author": "Max Tushev <maximtushev@gmail.com>",
-  "description": "Yanusjs is a web-framework where the client and server based on extjs",
+  "description": "Janusjs is a web-framework where the client and server based on extjs",
   "contributors": [ 
     {
       "name": "Max Tushev",
