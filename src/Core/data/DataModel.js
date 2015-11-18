@@ -340,16 +340,17 @@ Ext.define('Core.data.DataModel', {
         
         [
             function(call) {
-                if(params && params.params && params.params.reorder) {
-                    if(Ext.isString(params.params.reorder))  {
+                
+                if(params && params.reorder) {
+                    if(Ext.isString(params.reorder))  {
                         try {
-                            params.params.reorder = JSON.parse(params.params.reorder)  
+                            params.reorder = JSON.parse(params.reorder)  
                         } catch(e) {
-                            params.params.reorder = null
+                            params.reorder = null
                         }
                     }
-                    if(params.params.reorder) {
-                        me.reorder(params.params.reorder, function() {
+                    if(params.reorder) {
+                        me.reorder(params.reorder, function() {
                             call()    
                         })    
                     } else
@@ -379,10 +380,13 @@ Ext.define('Core.data.DataModel', {
                 })    
             }
             ,function(find, fields, sort, start, limit, call) {
+                
+                
                 if(me.find) {
                     for(var i in me.find)  find[i] = me.find[i];  
                 }
                 find.removed = {$ne: true}
+                
                 me.db.getData(me.collection, find, fields, sort, start, limit, function(total, data) {
                     call(total, data)
                 })

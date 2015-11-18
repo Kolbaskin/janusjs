@@ -305,7 +305,7 @@ Ext.define('Core.controller.Controller', {
             me.popupMenuControls(win);
         }
         me.setAccessControls(me.Permissions, win)
-        
+        me.buildChildPanels(win, {})
     }
     
 
@@ -426,7 +426,7 @@ Ext.define('Core.controller.Controller', {
      * @method
      * Adding a new data record and starting to edit it
      */
-    ,add: function(rec) {
+    ,add: function(rec, cb) {
         var me = this;
         
         if(!rec) rec = {data:{}}
@@ -446,7 +446,7 @@ Ext.define('Core.controller.Controller', {
                 }
             } else {
                 
-                me.modify(rec, null, true)
+                me.modify(rec, null, true, cb)
             }
         })
         
@@ -850,7 +850,7 @@ Ext.define('Core.controller.Controller', {
         }, 100)
             
         if(win.store && this.parentParams) {       
-            win.store.wsProxy.extraParams = this.parentParams                    
+            win.store.wsProxy.extraParams = this.parentParams 
         }                
         return win
     }

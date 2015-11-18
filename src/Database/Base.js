@@ -171,6 +171,7 @@ Ext.define("Database.Base", {
                     return;
                 }
                 find.$and = []
+            
                 var func = function(i) {
                     if(i>=filters.length) {
                         call();
@@ -190,8 +191,9 @@ Ext.define("Database.Base", {
                             if(model.fields[j].type && me.fieldTypes[model.fields[j].type]) 
                                 fldTp = me.fieldTypes[model.fields[j].type]    
                             fldTp.getFilterValue (model, filter, filter.property, function(prm) {
-                                if(prm)
+                                if(prm) {                                   
                                     find.$and.push(prm)
+                                }
                                 func(i+1)
                             })
                             return;

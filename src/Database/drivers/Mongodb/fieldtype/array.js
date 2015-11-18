@@ -112,6 +112,8 @@ Ext.define('Database.drivers.Mongodb.fieldtype.array', {
                 } 
             }
          }
-         callback(filter)  
+         var f = {}
+         f[filter.property] = filter.value
+         callback(f)  
     }
 })

@@ -433,7 +433,7 @@ Ext.define("Core.ProjectServer",{
         var me = this;
         
         for(var i = 0;i<me.config.routes.length;i++) {
-            if(me.config.routes[i].path.test(req.url)) {
+            if(new RegExp(me.config.routes[i].path).test(req.url)) {
                 me[me.config.routes[i].method](req, res, params)
                 return;
             }

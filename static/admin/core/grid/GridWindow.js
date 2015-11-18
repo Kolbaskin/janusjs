@@ -123,8 +123,15 @@ Ext.define('Core.grid.GridWindow', {
                         records:  recs,
                         dropRec: {_id: dropRec.data._id, indx: dropRec.data.indx},
                         position: dropPosition  
-                    }     
-                    me.store.load({params:{reorder:JSON.stringify(jData)}})
+                    }  
+                    var savedOptions = Ext.clone(me.store.proxy.extraParams)
+                    
+                    if(!me.store.proxy.extraParams) me.store.proxy.extraParams = {}
+                    me.store.proxy.extraParams.reorder = JSON.stringify(jData)
+                    
+                    me.store.load(function() {
+                        me.store.proxy.extraParams =  savedOptions   
+                    });
                 }
             }
         }

@@ -88,8 +88,7 @@ Ext.onReady(function () {
         
     });
     
-    Ext.define('Ext.form.field.Date', {
-        extend: 'Ext.form.field.Date',
+    Ext.override(Ext.form.field.Date, {
         initComponent: function(cfg) {
             if(!this.format || this.format == 'm/d/Y' || this.format == 'm/d/y') {
                 this.format = D.t('m/d/Y')
@@ -99,20 +98,17 @@ Ext.onReady(function () {
             this.callParent(arguments)
         }
     })
-    
-    Ext.define('Ext.grid.column.Date', {
-        extend: 'Ext.grid.column.Date',
+    Ext.override(Ext.grid.column.Date, {
         initComponent: function() {
             if(!this.format) this.format = D.t('m/d/Y')
             this.callParent(arguments)
         }
     })
    
-    
-    Ext.define('Ext.form.field.Checkbox', {
-        extend: 'Ext.form.field.Checkbox',
+    Ext.override(Ext.form.field.Checkbox, {
         initComponent: function() {
             this.uncheckedValue = false
+            this.callParent(arguments)
         }
     })
 

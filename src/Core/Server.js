@@ -169,7 +169,7 @@ Ext.define("Core.Server",{
                     me.requestListener(req, res)
                 })
             } else {
-                var server = http.createServer(function(req, res) {
+                var server = http.createServer(function(req, res) {                                       
                     me.requestListener(req, res)
                 })
             }
@@ -198,7 +198,18 @@ Ext.define("Core.Server",{
      * @param {Object} res - response object
      */
     ,requestListener: function(req, res) {          
-        var me = this
+        var me = this;
+        
+        // patch: http://habrahabr.ru/post/264851/
+        var socket = req.socket;
+        res.on('finish', function() {
+            socket.removeAllListeners('timeout');
+            socket.setTimeout(5000, function() {
+              socket.destroy();
+            });
+        });
+        // end path
+        
         if (req && req.headers && req.headers.host) {                 
             var host = req.headers.host.split(":")[0]                
             
