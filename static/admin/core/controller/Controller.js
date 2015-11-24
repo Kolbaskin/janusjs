@@ -1006,5 +1006,9 @@ Ext.define('Core.controller.Controller', {
             setTimeout(function() {grid.getView().focusRow(0)}, 100)
         }
     }
+    
+    ,autorun: function() {
+        this.createWindow().show().maximize(true)    
+    }
 });
 

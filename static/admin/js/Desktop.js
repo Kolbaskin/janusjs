@@ -660,7 +660,7 @@ Ext.define('Ext.ux.desktop.Desktop', {
             for(var i=0;i<runs.length;i++) {
                 Ext.create(runs[i],{
                     app: me.app
-                }).createWindow().show().maximize(true)
+                }).autorun()
             }
         }
         

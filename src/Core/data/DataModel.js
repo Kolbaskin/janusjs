@@ -1501,4 +1501,18 @@ Ext.define('Core.data.DataModel', {
        cb({}) 
     }
     
+    ,getSequence: function(name, cb) {
+    	var me = this;
+
+		me.src.db.collection('sequences').findAndModify(
+			{name: name},
+			{},
+			{$inc: {value: 1}},
+			{},
+			function(e,d) {
+				cb(d? d.value:'')
+			}
+		)
+	}
+    
 })
