@@ -31,12 +31,9 @@ Ext.define("Core.Mailtransport",{
             data.to = emails[i];
             if(me.isEmail(data.to)) {
                 me.mailer.sendMail(data, function(e,d) {
-console.log('send  err:', e);
-console.log('d:', d);
                     f(i+1)    
                 })
             } else {
-console.log('sen4')  
                 f(i+1)    
             }
         }

@@ -3,4 +3,4 @@ Janusjs
 
 Nodejs framework based on  ExtJs patterns
 
-Will soon be...
+http://habrahabr.ru/post/269791/ (Russian)
