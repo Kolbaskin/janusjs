@@ -28,6 +28,7 @@
  */
 Ext.define('Core.data.DataModel', {
     extend: 'Core.data.Model'
+    
         
     /**
      * @method
@@ -59,8 +60,11 @@ Ext.define('Core.data.DataModel', {
         )
     }
     
-    ,getPermissions: function(callback, nm, data) {  
-
+    /**
+     * @method
+     * Getting user permissions from server side
+     */
+    ,getPermissions: function(callback, nm, data) { 
         this.runOnServer('getPermissions', data, callback)
     }
     
@@ -97,23 +101,52 @@ Ext.define('Core.data.DataModel', {
         this.runOnServer('read', params, callback)
     }
     
-
+    /**
+     * @method
+     * Sanding data to server to save.
+     * @param {Object} data
+     * @param {Function} callback
+     */
     ,write: function(data, callback) {  
-        this.runOnServer('write', data, callback)
+        var validateResult = this.isValid(data);
+        if(validateResult === true || (!!validateResult.isValid && validateResult.isValid()))
+            this.runOnServer('write', data, callback)
+        else
+            callback(null, validateResult.items)
     }
     
+    /**
+     * @method
+     * Copying data.
+     * @param {String} id
+     * @param {Function} callback
+     */
     ,copy: function(id, callback) {        
         this.runOnServer('copy', {_id: id}, callback)
     }
-    
+    /**
+     * @method
+     * Removeing records.
+     * @param {Object} data
+     * @param {Function} callback
+     */
     ,remove: function(data, callback) {   
         this.runOnServer('remove', {records: data}, callback)
     }
-    
+    /**
+     * @method
+     * Getting unique ObjectId.
+     * @param {Function} callback
+     */
     ,getNewObjectId: function(cb) {
         this.runOnServer('getNewObjectId', {}, cb)    
     }
     
+    /**
+     * @method
+     * Downloading export file.
+     * @param {Object} filters
+     */
     ,exportData: function(filters) {
         var me = this, filt = []
         if(filters && filters.items && filters.items.length) {
@@ -131,7 +164,11 @@ Ext.define('Core.data.DataModel', {
                 location = '/Admin.Data.getXls/?file=' + encodeURIComponent(data.file) + '&name=' + me.collection + '.xlsx'    
         })
     }
-    
+    /**
+     * @method
+     * Importing one record.
+     * @param {Array} rec array with imported data 
+     */
     ,importCsvLine: function(rec, cb) {
         var me = this, data = {}, log = false;       
         for(var i=1;i<me.fields.items.length;i++) {
@@ -144,5 +181,44 @@ Ext.define('Core.data.DataModel', {
             data.noChangeModel = true
             me.write(data, cb)
         } else cb()
+    }
+    
+    /**
+     * Validates the current data against all of its configured {@link #validations}.
+     * @return {Ext.data.Errors} The errors object
+     */
+    ,validate: function(data) {
+        var errors      = new Ext.data.Errors(),
+            validations = this.validations,
+            length, validation, field, valid, type, i;         
+            
+        if (validations) {
+            length = validations.length;
+            for (i = 0; i < length; i++) {
+                validation = validations[i];
+                field = validation.field || validation.name;
+                type  = validation.type;
+                valid = Ext.create('Ext.data.validator.' + type, validation).validate(data[field]);
+                if (valid !== true) {
+                    errors.add({
+                        field  : field,
+                        message: valid
+                    });
+                }
+            }
+        }
+        return errors;
+    }
+
+    /**
+     * Checks if the model is valid. See {@link #validate}.
+     * @return {Boolean} True if the model is valid.
+     */
+    ,isValid: function(data){
+        if(this.validations) {
+            var res = this.validate(data);            
+            return res;
+        }
+        return true;
     }
 });

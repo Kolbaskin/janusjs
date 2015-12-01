@@ -10,9 +10,6 @@
  *     Ext.define('prjNamespace.mymodule.controller.MyModule', {
  *         extend: 'Core.controller.Controller',
  *         
- *         // An optional param. Specify it if you want to run your module only once.
- *         id:'mycontroller-win',
- *         
  *         // Required object.
  *         launcher: {
  *             text: D.t('My module name'),
@@ -26,9 +23,6 @@
  *     @example
  *     Ext.define('prjNamespace.mymodule.controller.MyModule', {
  *         extend: 'Core.controller.Controller',
- *         
- *         // An optional param. Specify it if you want to run your module only once.
- *         id:'mycontroller-win',
  *         
  *         // Required object.
  *         launcher: {
@@ -366,8 +360,8 @@ Ext.define('Core.controller.Controller', {
      * @param {String} selector
      * @param {Boolean} disable
      */
-    ,setButtonDisabled: function(selector, disable) {
-        var el = this.mainWin.down(selector)
+    ,setButtonDisabled: function(selector, disable, win) {
+        var el = win? win.down(selector):this.mainWin.down(selector)
         if(el) el.setDisabled(disable)
     }
     
@@ -377,21 +371,21 @@ Ext.define('Core.controller.Controller', {
      * Setting up buttons disabled/enabled depending on the event 
      * @param {String} event
      */
-    ,setButtonsDisabled: function(evn) {
+    ,setButtonsDisabled: function(evn, win) {
         var me = this          
         
         if(evn == 'open') {
-            me.setButtonDisabled('[action=formsave]',true)
-            me.setButtonDisabled('[action=formremove]',false)
+            me.setButtonDisabled('[action=formsave]',true, win)
+            me.setButtonDisabled('[action=formremove]',false, win)
         }
         
         if(evn == 'new') {
-            me.setButtonDisabled('[action=formsave]',true)
-            me.setButtonDisabled('[action=formremove]',true)
+            me.setButtonDisabled('[action=formsave]',true, win)
+            me.setButtonDisabled('[action=formremove]',true, win)
         }
         
         if(evn == 'edit') {
-            me.setButtonDisabled('[action=formsave]',false)
+            me.setButtonDisabled('[action=formsave]',false, win)
         }
     }
     
@@ -595,6 +589,13 @@ Ext.define('Core.controller.Controller', {
         return win
     }
     
+    /**
+     * @method
+     * @private
+     * Building details form.
+     * @param {String} formClassName
+     * @param {Object} record
+     */
     ,buildDetailForm: function(formClassName, record) {
         return Ext.create(formClassName, {
             model: this.model, 
@@ -703,8 +704,12 @@ Ext.define('Core.controller.Controller', {
         }
 
         var saveF = function(data) {
-            me.model.write(data, function(data) {
+            me.model.write(data, function(data, err) {
                 setButtonsStatus()
+                if(err) {
+                    me.showErrorMessage(win, err)
+                    return;
+                }
                 if(me.fireEvent('save', form, data) === false || (!!me.afterSave && me.afterSave(win, data) === false)) {
                     if(callback) callback(data)
                     return;
@@ -717,7 +722,7 @@ Ext.define('Core.controller.Controller', {
                         var idf = form.down('[name=_id]')
                         if(data.record && data.record._id && idf.getValue()=='') idf.setValue(data.record._id)   
                     }
-                    me.setButtonsDisabled('open')                    
+                    me.setButtonsDisabled('open', win)                    
                 }
                     
                 if(callback) callback(data)
@@ -817,6 +822,11 @@ Ext.define('Core.controller.Controller', {
         this.buildAsChild(params).show()
     }
     
+    /**
+     * @method
+     * @private
+     * @param {Object}
+     */
     ,buildAsChild: function(params) {
         this.app = params.app  
               
@@ -855,6 +865,12 @@ Ext.define('Core.controller.Controller', {
         return win
     }
     
+    /**
+     * @method
+     * @private
+     * @param {Ext.form.FormPanel} form
+     * @param {Object} data
+     */
     ,buildChildPanels: function(form, rec) {
         var me = this, items = form.query('[childModule]')
 
@@ -938,6 +954,12 @@ Ext.define('Core.controller.Controller', {
         }
     }
     
+    /**
+     * @method
+     * @private
+     * @param {Object} link to input type=file
+     * @param {Object} Ext.window.Window or Ext.form.FormPanel
+     */
     ,importCsv: function(th, win) {        
         var me = this;       
         if(th.fileInputEl.dom.files.length>0) {
@@ -949,7 +971,11 @@ Ext.define('Core.controller.Controller', {
             reader.readAsText(th.fileInputEl.dom.files[0]);
         }    
     }
-    
+    /**
+     * @method
+     * @private
+     * @param {String} string with CSV data 
+     */
     ,importCsvContent: function(data) {
         var me = this
             ,len = data.length
@@ -992,7 +1018,11 @@ Ext.define('Core.controller.Controller', {
         }
         f(0)
     }
-    
+    /**
+     * @method
+     * @private
+     * @param {Object} Window or Formpanel 
+     */
     ,setFocusToGrid: function(win) {
         var me = this
             ,grid = win.down('grid');
@@ -1007,8 +1037,26 @@ Ext.define('Core.controller.Controller', {
         }
     }
     
+    /**
+     * @method
+     * This method is triggered when the module is in the autorun list.
+     */
     ,autorun: function() {
         this.createWindow().show().maximize(true)    
+    }
+    /**
+     * @method
+     * @private
+     * @param {Object} Window or Formpanel
+     * @param {Array} Errors objects
+     */
+    ,showErrorMessage: function(win, err) {
+        err.forEach(function(item) {
+            var el = win.down('[name='+item.field+']');
+            if(el && !!el.setActiveError) {
+                el.setActiveError(item.message)
+            }
+        })
     }
 });
 

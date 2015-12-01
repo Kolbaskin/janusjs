@@ -348,7 +348,9 @@ Ext.define('Core.data.Model', {
 
     observableType: 'record',
 
+/*
     constructor: function (data, session) {
+        
         var me = this,
             cls = me.self,
             identifier = cls.identifier,
@@ -417,7 +419,7 @@ Ext.define('Core.data.Model', {
             me.init();
         }
     },
-
+*/
     /**
      * @property {String} entityName
      * The short name of this entity class. This name is derived from the `namespace` of
@@ -2861,7 +2863,7 @@ Ext.define('Core.data.Model', {
             prepFields: function(fields) {
                 if(!fields) return fields;
                 for(var i=0;i<fields.length;i++) {
-                    if(['string'].indexOf(fields[i].type) == -1)
+                    if(['boolean', 'date', 'integer', 'number', 'string'].indexOf(fields[i].type) == -1)
                         delete fields[i].type
                 }
                 return fields;
@@ -3020,7 +3022,7 @@ Ext.define('Core.data.Model', {
                 validatorDefs = data.validators || data.validations;
                 //<debug>
                 if (data.validations) {
-                    delete data.validations;
+                    //delete data.validations;
                     Ext.log.warn((cls.$className || 'Ext.data.Model' ) +
                           ': validations has been deprecated. Please use validators instead.');
                 }

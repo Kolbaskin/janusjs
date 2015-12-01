@@ -14,6 +14,14 @@ var excelbuilder = require('msexcel-builder')
  
 Ext.define('Core.data.DataModel', {
     extend: 'Core.AbstractModel'
+    
+    ,requires: [
+        'Ext.data.validator.Validator',
+        'Ext.data.Validation'
+    ]
+    ,uses: [
+        'Ext.data.Validation'
+    ]
 
     ,maxLimit: 50    
     
@@ -467,11 +475,16 @@ Ext.define('Core.data.DataModel', {
         var me =this
             ,insdata = {}
             ,actionType;
-
-
-
         [
             function(call) {
+                var isValid = me.isValid(data);
+                if(isValid === true) {
+                    call()    
+                } else {
+                    me.error(415, {mess: isValid.join('; ')})    
+                }
+            }
+            ,function(call) {
                 if(!!me.beforeSave) {
                     me.beforeSave(data, call);    
                 } else call(data)
@@ -1514,5 +1527,46 @@ Ext.define('Core.data.DataModel', {
 			}
 		)
 	}
+    
+    /**
+     * Validates the current data against all of its configured {@link #validations}.
+     * @return {Ext.data.Errors} The errors object
+     */
+    ,validate: function(data) {
+        var errors      = {items:[], isValid: true},
+            validations = this.validations,
+            length, validation, field, valid, type, i;
+
+        if (validations) {
+            length = validations.length;
+            for (i = 0; i < length; i++) {
+                validation = validations[i];
+                field = validation.field || validation.name;
+                type  = validation.type;
+                valid = Ext.create('Ext.data.validator.' + type, validation).validate(data[field]);
+                if (valid !== true) {
+                    errors.isValid = false
+                    errors.items.push({
+                        field  : field,
+                        message: valid
+                    });
+                }
+            }
+        }
+        return errors;
+    }
+
+    /**
+     * Checks if the model is valid. See {@link #validate}.
+     * @return {Boolean} True if the model is valid.
+     */
+    ,isValid: function(data){
+        if(this.validations) {
+            var res = this.validate(data)
+            if(res.isValid)  return true          
+            return res.items;
+        }
+        return true;
+    }
     
 })
