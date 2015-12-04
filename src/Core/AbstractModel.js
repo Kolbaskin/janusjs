@@ -219,8 +219,6 @@ Ext.define('Core.AbstractModel',{
         var me = this
             ,token = (params.token? params.token: (me.params && me.params.token? me.params.token:null))
             ,id = (params.id? params.id: (me.id && me.params.id? me.params.id:(params.uid? params.uid:null)))
-
-
             
         if(id && token) { 
             me.src.mem.get(token, function(e, r){

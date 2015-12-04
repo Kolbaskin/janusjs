@@ -68,6 +68,18 @@ Ext.define('Desktop.modules.users.model.UsersModel', {
         editable: true,
         visible: true
     },{
+        name: 'ip',
+        type: 'string',
+        filterable: true,
+        editable: true,
+        visible: true
+    },{
+        name: 'secret',
+        type: 'string',
+        filterable: true,
+        editable: true,
+        visible: true
+    },{
         name: 'act1',
         type: 'boolean',
         filterable: true,
@@ -125,4 +137,6 @@ Ext.define('Desktop.modules.users.model.UsersModel', {
             }
         ].runEach()
     }
+    
+
 })

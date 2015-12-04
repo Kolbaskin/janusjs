@@ -7,8 +7,72 @@
  * 
  *     @example
  *     Ext.define('MyProjectNamespace.mymodule.model.mymoduleModel', {
- *         extend: 'Core.data.DataModel',
+ *         extend: 'Core.data.DataModel', 
+ * 
+ *         // Collection name
+ *         collection: 'news', // scope:server    
+ *         // remove or mark
+ *         removeAction: 'remove', // scope:server
+ *         // for search indexer texts templates
+ *         searchCfg: {
+ *             titleTpl: '{title}',
+ *             descriptTpl: '<tpl if="text">{[values.text.replace(/(<([^>]+)>)/ig," ")]}</tpl>',
+ *             indexFields: ['date_start']
+ *         },
  *         
+ *         fields: [{
+ *             name: '_id',
+ *             type: 'ObjectID',
+ *             visible: true
+ *         },{
+ *             name: 'title',
+ *             type: 'string',
+ *             filterable: true,
+ *             editable: true,
+ *             visible: true
+ *         },{
+ *             name: 'stext',
+ *             type: 'string',
+ *             filterable: false,
+ *             editable: true,
+ *             visible: true
+ *         },{
+ *             name: 'text',
+ *             type: 'string',
+ *             filterable: false,
+ *             editable: true,
+ *             visible: true
+ *         },{
+ *             name: 'publ',
+ *             type: 'boolean',
+ *             filterable: true,
+ *             editable: true,
+ *             visible: true
+ *         },{
+ *             name: 'ctime',
+ *             type: 'date',
+ *             sort: -1,
+ *             filterable: true,
+ *             editable: false,
+ *             visible: true
+ *         }], 
+ *         // validation rules. 
+ *         // type is one of Ext.data.validator (Bound, Email, Exclusion, Format, Inclusion, Length, Presence, Range)
+ *         validations: [
+ *             {type: 'Presence',  field: 'title'}, 
+ *             {type: 'Length',    field: 'title', min: 10},
+ *             {type: 'Presence',  field: 'stext'}
+ *         ]         
+ *     }) 
+ * 
+ *     You can call client and server methods in one model:
+ * 
+ *     @example
+ *     Ext.define('MyProjectNamespace.mymodule.model.mymoduleModel', {
+ *         extend: 'Core.data.DataModel',
+ * 
+ *         .....
+ * 
  *         // Client method calls server method
  *         myMethod: function(data, callback) {
  *             // your actions on server side

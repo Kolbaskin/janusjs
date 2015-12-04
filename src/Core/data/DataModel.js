@@ -27,6 +27,12 @@ Ext.define('Core.data.DataModel', {
     
     ,constructor: function(cfg) {
         var me = this;
+        
+        if(cfg && cfg.skipInit) {
+            me.callParent(arguments)
+            return;
+        }
+        
         if(me.dbType && cfg.src[me.dbType]) {       
             me.db = cfg.src[me.dbType]
         } else              
@@ -393,8 +399,11 @@ Ext.define('Core.data.DataModel', {
                 if(me.find) {
                     for(var i in me.find)  find[i] = me.find[i];  
                 }
-                find.removed = {$ne: true}
-                
+                if(me.removeAction != 'remove') {
+                    find.removed = {$ne: true}
+                } else
+                if(find.removed)
+                    delete find.removed
                 me.db.getData(me.collection, find, fields, sort, start, limit, function(total, data) {
                     call(total, data)
                 })
@@ -826,7 +835,7 @@ Ext.define('Core.data.DataModel', {
             
         [
             function(next) {
-                var find = {removed: {$ne: true}}
+                var find = me.removeAction == 'remove'? {}:{removed: {$ne: true}}
                 find[bind.pidField] = srcId;
                 me.src.db.collection(model.collection).find(find, {_id: 1}).toArray(function(e, data) {
                     if(data && data.length) {

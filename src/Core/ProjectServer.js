@@ -115,6 +115,7 @@ Ext.define("Core.ProjectServer",{
         } 
         
         me.startStaticServer() 
+        me.readModelsListeners()
 
     }
     
@@ -497,7 +498,7 @@ Ext.define("Core.ProjectServer",{
     }
     
     ,runRouteModel: function(controllerName, req, res, params, path) {
-        var me = this, mdl;
+        var me = this, mdl, method;
         [
             function(next) {
                 mdl = Ext.create(controllerName, {
@@ -510,29 +511,48 @@ Ext.define("Core.ProjectServer",{
                 next()
             }
             ,function(next) {
-                if(params.gpc.id && params.gpc.token) {
-                    mdl.checkAuthorization({
-                        id: params.gpc.id,
-                        token: params.gpc.token,
-                        auth: '?'
-                    }, function(auth) {
-                        next(auth)
-                    })    
-                } else
-                    next(false)
+                mdl.checkAuthorization(params.gpc, function(auth) {
+                    next(auth)
+                })    
             }
             ,function(uid, next) {
                 if(uid) 
                     mdl.user = {id: uid}
-                var method = path[path.length-1]
+                method = path[path.length-1]
                 if(!!mdl.run) mdl.run(method)
                 else
                 if(!!mdl['$' + method]) {                   
-                    mdl['$' + method](params.gpc, next)
+                    mdl['$' + method](params.gpc, function(result) {next(result)})
+                }
+            }
+            ,function(result, next) {
+                if(result) {
+                    if(me.modelListeners[controllerName]) {
+                        me.modelListeners[controllerName].prepEach(
+                            function(item, nxt) {
+                                if(item.listeners[method]) {
+                                    var cls = Ext.create(item.model, {scope: mdl})
+                                    cls[item.listeners[method]](result, function() {
+                                        nxt(item)    
+                                    })
+                                    cls.destroy();
+                                } else
+                                    nxt(item)
+                                
+                            },
+                            function(arr) {
+                                next(result)
+                            }
+                        )
+                    }
+                } else {                    
+                    mdl.destroy();
+                    next(result)
                 }
             }
             ,function(result) {
-                if(result) {
+                if(result) {                
+                    
                     var out = {headers: {'Content-Type': 'text/plain;utf-8'}}
                     if(Ext.isObject(result)) {
                         out.headers['Content-Type'] = 'application/json;utf-8'
@@ -995,5 +1015,41 @@ Ext.define("Core.ProjectServer",{
     
     ,setUserOffline: function(_id) {
         this.changeUserState(_id, 0);
+    }
+    
+    ,readModelsListeners: function() {
+        var me = this
+            ,modulesDir = me.config.adminModulesDir.split('/').pop()
+            ,dir = me.config.staticDir + me.config.adminModulesDir;
+        
+        me.modelListeners = {}
+        
+        var prepModel = function(module, model, cb) {
+            var clsName = me.config.nameSpace + '.' + modulesDir + '.' + module + '.model.' + model.split('.')[0]
+                ,cls = Ext.create(clsName, {skipInit: true})
+            
+            if(cls && cls.listeners) {
+                for(var i in cls.listeners) {
+                    if(!me.modelListeners[i]) me.modelListeners[i] = [] 
+                    me.modelListeners[i].push({model: clsName, listeners: Ext.clone(cls.listeners[i])})
+                }
+            }
+            delete cls;           
+            cb()
+        }
+        
+        var prepModuleDir = function(path, cb) {
+            fs.readdir(dir + '/' + path + '/model', function(e, files) {                    
+                if(files && files.length) files.prepEach(function(file, next) {
+                     prepModel(path, file, next)   
+                }, function() {cb()})            
+            })
+        }
+        
+        fs.readdir(dir, function(e, files) {                    
+            if(files && files.length) files.prepEach(prepModuleDir, function() {
+                //console.log( me.modelListeners)    
+            })            
+        })
     }
 })

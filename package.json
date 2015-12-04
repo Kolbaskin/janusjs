@@ -1,8 +1,9 @@
 {
   "name": "janusjs",
-  "version": "0.0.5",
+  "version": "0.0.9",
   "author": "Max Tushev <maximtushev@gmail.com>",
   "description": "Janusjs is a web-framework where the client and server based on extjs",
+  "engines" : { "node" : ">=4.0.0 <=4.2.3" }, 
   "contributors": [ 
     {
       "name": "Max Tushev",

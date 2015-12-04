@@ -13,7 +13,6 @@ Ext.define('Desktop.modules.users.view.UsersForm', {
         xtype: 'textfield'
     },
     layout: 'anchor',
-    height: 300,
     width: 500,
     bodyStyle: 'padding: 10px',
     

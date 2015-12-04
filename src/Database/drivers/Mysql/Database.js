@@ -112,7 +112,7 @@ Ext.define("Database.drivers.Mysql.Database", {
             for(var i in cfg.fields) if(cfg.fields[i] == 1) qFields.push(i)
             cfg.fields = qFields
         }
-        
+
         var res = sqlBuilder(cfg)
     
         out = []
@@ -122,7 +122,7 @@ Ext.define("Database.drivers.Mysql.Database", {
             else
                 out.push(res.values[i])    
         }
-      
+        
         res.query = res.query.replace(/\$p[0-9]{1,}/g,'?')
         res.values = out
         return res
