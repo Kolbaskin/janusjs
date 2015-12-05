@@ -1088,7 +1088,6 @@ Ext.define('Core.data.DataModel', {
      * @param {Function} callback
      */
     ,getPermissions: function(callback, mn, data) {
-       
         var me = this;   
         
         if(!mn) mn = me.getShortName();
@@ -1236,8 +1235,9 @@ Ext.define('Core.data.DataModel', {
         me.getPermissions(function(permis) {
             if(permis.read)
                 me.getData(data, cb)
-            else
+            else {
                 me.error(401)
+            }
         }, null, data)
     }
     
@@ -1576,6 +1576,28 @@ Ext.define('Core.data.DataModel', {
             return res.items;
         }
         return true;
+    }
+    
+    ,error: function(code, mess) {
+        if(!this.response) {
+            console.log('Error #',code,': ', mess)
+            return;
+        }
+        var headers = {}
+            ,http_codes = require('http_codes')
+            ,test = ''
+        headers['Content-Type'] = 'application/json;utf-8'
+        if(http_codes.httpCodes[code]) {
+            text = http_codes.httpCodes[code]
+        }
+        var result = JSON.stringify({
+            error: code,
+            message: mess || text
+        })
+        headers['Content-Length'] = Buffer.byteLength(result, 'utf8')
+        this.response.writeHead(code, text, headers); 
+        this.response.end(result)
+    
     }
     
 })

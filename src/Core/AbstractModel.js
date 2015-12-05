@@ -42,7 +42,7 @@ Ext.define('Core.AbstractModel',{
     }
     
     ,error: function(err) {
-        console.log(err)
+        
     }
     
     /**

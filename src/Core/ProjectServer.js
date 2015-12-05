@@ -511,6 +511,15 @@ Ext.define("Core.ProjectServer",{
                 next()
             }
             ,function(next) {
+                if(params.fullData) {
+                    var bodyJson;
+                    try {
+                        bodyJson = JSON.parse(params.fullData.toString('UTF-8'))
+                    } catch(e) {}
+                    if(bodyJson) {
+                        params.gpc = bodyJson 
+                    }
+                }
                 mdl.checkAuthorization(params.gpc, function(auth) {
                     next(auth)
                 })    
