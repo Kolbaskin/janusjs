@@ -75,8 +75,8 @@ Ext.define('Desktop.modules.goe.controller.Goe', {
                 height: cfg.height,
                 rectWidth: width,
                 rectHeight: height,
-                rectX: x,
-                rectY: y,
+                rectX: 0,
+                rectY: 0,
                 src: data,
                 preserveRatio: cfg.preserveRatio
             }

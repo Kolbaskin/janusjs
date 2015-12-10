@@ -215,24 +215,56 @@ Ext.define('Core.AbstractModel',{
      * @param {Object}
      * @param {Function} callback
      */
-    ,checkAuthorization: function(params, callback) {
-        var me = this
-            ,token = (params.token? params.token: (me.params && me.params.token? me.params.token:null))
-            ,id = (params.id? params.id: (me.id && me.params.id? me.params.id:(params.uid? params.uid:null)))
+    ,checkAuthorization: function(params, cb) {
+        var me = this           
+            ,isSecret = false
+            ,token, id;
             
-        if(id && token) { 
-            me.src.mem.get(token, function(e, r){
-                if(r == id) {    
-                    me.src.mem.set(token, id,  function(e, rr){               
-                        me.src.db.fieldTypes.ObjectID.StringToValue(r, function(r) {
-                            callback(r);
-                        })
-                    }, me.config.token.lifetime);
+        if(params.secret) {
+            var s = params.secret.split('-')
+            token = s[1]
+            id = s[0]
+            isSecret = true
+        } else {            
+            token = (params.token? params.token: (me.params && me.params.token? me.params.token:null))
+            id = (params.id? params.id: (me.id && me.params.id? me.params.id:(params.uid? params.uid:null)))
+        }
+        ;[
+            function(next) {
+                if(id && token) { 
+                    me.src.mem.get(token, function(e, r) {
+                        next(r == id)
+                    })
+                } else
+                    cb(null)
+            }
+     
+            ,function(isCached, next) {    
+                if(isCached) {
+                    me.src.db.fieldTypes.ObjectID.StringToValue(id, function(_id) {
+                        next(_id);
+                    })
                 } else 
-                    callback(null);                
-            });
-        } else 
-            callback(null);
+                if(isSecret) {
+                    me.src.db.collection("admin_users").findOne({
+                        secret: params.secret,
+                        removed: {$ne: true}
+                    },{_id:1}, function(e,d) {
+                        if(d && d._id)
+                            next(d._id)
+                        else
+                            cb(null)
+                    })
+                } else
+                    cb(null)
+            }
+            ,function(_id) {
+                me.src.mem.set(token, id,  function(e, rr){       
+                    cb(_id);
+                }, me.config.token.lifetime);
+            }
+        ].runEach()
+        
     }
 
 });

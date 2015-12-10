@@ -45,7 +45,7 @@ Ext.define('Core.data.DataModel', {
             me.db.checkCollection(me)
         }
         
-        
+        if(cfg.xPermissions) me.accessSet = cfg.xPermissions;
 
         me.callParent(arguments)
     }

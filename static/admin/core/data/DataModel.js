@@ -93,6 +93,10 @@
 Ext.define('Core.data.DataModel', {
     extend: 'Core.data.Model'
     
+    ,constructor: function(cfg) {
+        if(this.xPermissions) this.accessSet = this.xPermissions;
+        this.callParent(arguments)
+    }
         
     /**
      * @method

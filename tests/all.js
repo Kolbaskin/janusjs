@@ -2,7 +2,6 @@ require('proto_correct');
 
 Ext = require("extjs-node");
 
-
 Ext.BaseDir = __dirname + "/../";
 
 var Paths = {
@@ -25,20 +24,23 @@ var Mocha = require('mocha'),
 assert = chai.assert;
 mocha = new Mocha();
 
-var files = fs.readdirSync('./tests/Server').filter(function(file){
-    return file.substr(-3) === '.js';
+exports.runTests = function(dir) {
 
-})
-
-files.sort()
-
-files.forEach(function(file){
-    mocha.addFile(
-        path.join('./tests/Server', file)
-    );
-});
-mocha.run(function(failures){
-  process.on('exit', function () {
-    process.exit(failures);
-  });
-});
+    var files = fs.readdirSync(dir).filter(function(file){
+        return file.substr(-3) === '.js';
+    
+    })
+    
+    files.sort()
+    
+    files.forEach(function(file){
+        mocha.addFile(
+            path.join(dir, file)
+        );
+    });
+    mocha.run(function(failures){
+      process.on('exit', function () {
+        process.exit(failures);
+      });
+    });
+}

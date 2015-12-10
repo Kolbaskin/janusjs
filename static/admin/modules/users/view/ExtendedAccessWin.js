@@ -48,7 +48,6 @@ Ext.define('Desktop.modules.users.view.ExtendedAccessWin', {
         var me = this;
         return [{
             text: D.t('Accept'),
-            ui: 'primary',
             scale: 'medium',
             handler: function() {me.accept()}
         },{

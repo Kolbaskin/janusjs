@@ -1,6 +1,7 @@
 var fs = require('fs'), 
     cls = Ext.create('Core.ProjectServer', {
         "debug": true,
+        "adminModulesDir": "/static/admin",
         "mongo": {
             "db_name": "test",
             "port": 27017,

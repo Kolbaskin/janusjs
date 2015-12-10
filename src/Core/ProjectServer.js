@@ -250,7 +250,7 @@ Ext.define("Core.ProjectServer",{
         var me = this
             ,params = {};
         params.gpc = querystring.parse(req.url.split('?')[1])
-        
+
         if (req.method == 'POST') {  
 
     
@@ -384,6 +384,7 @@ Ext.define("Core.ProjectServer",{
             if(params.gpc[key] === undefined) params.gpc[key] = val
         });
         //params.gpc = Ext.merge(params.gpc, params.cookies)
+        
         this.prepGPCData(req, res, params)
         
     }
@@ -419,7 +420,7 @@ Ext.define("Core.ProjectServer",{
                 }
             }
         }
-        
+       
         this.route(req, res, params)
     }
     
@@ -434,7 +435,7 @@ Ext.define("Core.ProjectServer",{
         var me = this;
         
         for(var i = 0;i<me.config.routes.length;i++) {
-            if(new RegExp(me.config.routes[i].path).test(req.url)) {
+            if(new RegExp(me.config.routes[i].path).test(req.url)) { 
                 me[me.config.routes[i].method](req, res, params)
                 return;
             }
