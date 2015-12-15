@@ -116,7 +116,6 @@ Ext.define('Desktop.core.widgets.GridField',{
                     me.keyDown(record, e)    
                 },
                 cellclick: function( th, td, cellIndex, record, tr, rowIndex, e, eOpts ) {
-                    console.log(e)
                     me.fireEvent('cellclick', th, td, cellIndex, record, tr, rowIndex, e, eOpts)    
                 }
             }

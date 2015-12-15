@@ -97,7 +97,7 @@ Ext.define('Admin.Data',{
                 cfg.tmpName = me.params.tmpName
             else
                 cfg.data = me.params.fullData
-            
+
             me.callModel('Admin.model.Files.uploadImage', cfg, function(img) {               
                 me.sendJSON(img) 
             })
