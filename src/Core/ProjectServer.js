@@ -554,7 +554,9 @@ Ext.define("Core.ProjectServer",{
                                 next(result)
                             }
                         )
-                    }
+                    } else
+                       mdl.destroy();
+                       next(result) 
                 } else {                    
                     mdl.destroy();
                     next(result)
