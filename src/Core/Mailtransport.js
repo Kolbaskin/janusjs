@@ -17,7 +17,7 @@ Ext.define("Core.Mailtransport",{
             cb()
             return;
         }
-        var me = this, emails = []
+        var me = this, emails = [];
         
         if(Ext.isString(data.to))
             emails = data.to.replace(/;/g, ',').replace(/\s/g, '').split(',')
@@ -31,6 +31,8 @@ Ext.define("Core.Mailtransport",{
             data.to = emails[i];
             if(me.isEmail(data.to)) {
                 me.mailer.sendMail(data, function(e,d) {
+                    if(e)
+                        console.log('err:', e)
                     f(i+1)    
                 })
             } else {

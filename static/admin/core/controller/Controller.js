@@ -672,7 +672,7 @@ Ext.define('Core.controller.Controller', {
         var grid = this.mainWin.down('grid')
             
         if(grid) {
-            grid.getStore().load();
+            grid.getStore().reload();
         }
     }
     

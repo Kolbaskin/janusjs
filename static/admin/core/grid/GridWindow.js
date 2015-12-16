@@ -129,7 +129,7 @@ Ext.define('Core.grid.GridWindow', {
                     if(!me.store.proxy.extraParams) me.store.proxy.extraParams = {}
                     me.store.proxy.extraParams.reorder = JSON.stringify(jData)
                     
-                    me.store.load(function() {
+                    me.store.reload(function() {
                         me.store.proxy.extraParams =  savedOptions   
                     });
                 }
