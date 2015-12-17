@@ -11,7 +11,7 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
 
     launcher: {
         text: D.t('Pages'),
-        iconCls:'fa fa-files-o',
+        iconCls:'pages',
         model: 'pages-PagesModel'
     },
     mainView: 'Desktop.modules.pages.view.Pages'
@@ -20,7 +20,7 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
     
     ,addControls: function(win) {
         var me = this
-
+    
         me.control(win,{
             '[action=refreshpages]': {click: function(bt) {me.refreshTree(bt)}},
             '[action=formsave]': {click: function() {me.save(win, false)}},  
@@ -31,6 +31,7 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
             "[action=refresh]": {click: function() {me.refresh()}},
             "[action=remove]": {click: function() {me.remove()}}, 
             'form field': {change: function(fl, v) {me.formFieldsChange(fl,v);}},
+            '[name=locales]': {edit: function(fl, v) {me.formFieldsChange(fl,v);}},
             "[action=import]":{change: function(th, val) {me.importCsv(th, win)}},
             'actioncolumn': {click: function(g, ri, ci, aitm, event, record, raw) {
                 me.addPage(record);return false;
@@ -120,7 +121,6 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
     
     ,setChmod: function(record) {
         record.data.access = (record.data.access? false:true)  
-        record.commit()
         this.model.chmod({
             permis: record.data.access,
             _id: record.data.id
@@ -128,8 +128,7 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
     }
     
     ,setSiteMap: function(record) {
-        record.data.map = (record.data.map? false:true)
-        record.commit()
+        record.data.map = (record.data.map? false:true)            
         this.model.toSitemap({
             map: record.data.map,
             _id: record.data.id
@@ -161,8 +160,9 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
     
     ,cellClick: function ( cell, td, cellIndex, record) {
         var me = this        
+        
         if(cellIndex == 3 && record.data.aAccess.add) {
-            me.addPage(record);
+            me.addPage(record)
             return;
         }
         if(cellIndex == 4 && record.data.aAccess.modify) {
@@ -477,11 +477,13 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
         
         if(pos == 'append') {
         // вставляем в дочерний подуровень         
-            rec.pid = overModel.internalId
+            rec.pid = overModel.data._id
             //new_dir = overModel.data.dir
             //me.currentRow = overModel.appendChild(rec)
         } else {
-            rec.pid = overModel.parentNode.internalId
+   
+            rec.pid = overModel.parentNode.data._id
+            
             if(pos == 'before' ) {                
                 rec.indx = overModel.data.index
                 //me.currentRow = overModel.parentNode.insertChild(overModel.data.index, rec)
@@ -504,7 +506,6 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
         }
 
         if(recs.length>0) {
-            
             me.model.reorder({
                 recs:recs,
                 indexes: indexes

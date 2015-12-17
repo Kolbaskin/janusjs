@@ -63,7 +63,7 @@ Ext.define('Core.data.TreeDataModel', {
                     })
                     return;
                 }
-                me.db.getData(me.collection, find, fields, null, null, null, function(total, data) {
+                me.db.getData(me.collection, find, fields, {indx: 1}, null, null, function(total, data) {
                     call(data)    
                 })
             }
@@ -129,13 +129,15 @@ Ext.define('Core.data.TreeDataModel', {
             }
             
             ,function(indexes, recs, sortField, call) {
-                var func = function(i) {
+                var rootId, func = function(i) {
                     if(i>=recs.length) {
                         call(indexes, recs, sortField)
                         return;
                     }
                     var id = me.src.db.fieldTypes.ObjectID.StringToValue(recs[i]? recs[i]._id:'')
                         ,pid = me.src.db.fieldTypes.ObjectID.StringToValue(recs[i].pid? recs[i].pid:'');
+                        
+                    if(!pid) pid = rootId;   
                     if(id && pid) {
                         me.src.db.collection(me.collection).update({_id:id}, {$set:{pid: pid}}, function(e,d,qr) {
                             func(i+1)    
@@ -144,7 +146,14 @@ Ext.define('Core.data.TreeDataModel', {
                         callback(null)    
                     }
                 }
-                func(0)
+                me.src.db.collection(me.collection).findOne({root:true}, {_id:1}, function(e,d) {
+                    if(d) {
+                        rootId = d._id  
+                        func(0)
+                    } else
+                        callback(null)
+                })
+                
             }
             
             ,function(indexes, recs, sortField, call) {
