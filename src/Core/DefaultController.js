@@ -123,11 +123,19 @@ Ext.define('Core.DefaultController',{
                 var block = data.blocks[i]
                 if(!block.block) block.block = 1
                 if(!blocks[block.block]) blocks[block.block] = []
-                if(block.controller) {
-                    me.callModel(block.controller, me.params, function(res) {
-                        blocks[block.block].push(res)
-                        fun(i+1)
-                    })
+                if(block.controller && block.controller.substr(0,5) !== 'name:') {
+                    var cx = block.controller.split(':');
+                    if(cx.length == 2 && !!me['__' + cx[0]]) {
+                        me['__' + cx[0]](cx[1].trim(), function(res) {
+                            blocks[block.block].push(res)
+                            fun(i+1)
+                        })
+                    } else {
+                        me.callModel(block.controller, me.params, function(res) {
+                            blocks[block.block].push(res)
+                            fun(i+1)
+                        })
+                    }
                 } else {
                     blocks[block.block].push(block.text)
                     fun(i+1)
@@ -169,6 +177,20 @@ Ext.define('Core.DefaultController',{
         me.src.db.collection('admin_templates').findOne({_id: tplCode}, {}, function(e, data) {
             callback(data)
         })
+    }
+    
+    ,__include: function(name, cb) {
+        this.src.db.collection('pages').findOne({'blocks.controller': 'name:'+name}, {blocks:1}, function(e,d) {
+            if(d) {
+                for(var i=0;i<d.blocks.length;i++) {
+                    if(d.blocks[i].controller == 'name:'+name)  {
+                        cb(d.blocks[i].text)
+                        return;
+                    }
+                }
+            } 
+            cb('')
+        })    
     }
     
 })
