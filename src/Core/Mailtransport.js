@@ -25,7 +25,7 @@ Ext.define("Core.Mailtransport",{
             data.to.each(function(e) {emails.push(e)})
         var f = function(i) {
             if(i>=emails.length) {
-                cb()
+                if(!!cb) cb()
                 return;
             }
             data.to = emails[i];

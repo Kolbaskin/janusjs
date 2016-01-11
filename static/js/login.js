@@ -75,9 +75,7 @@ $(document).ready(function() {
             $.post("/" + LoginApi + "/", {
                 login: l,
                 pass: p
-            }, function(r) {
-
-                
+            }, function(r) {                
                 if(r && r.response) {
                     if(r.response && r.response.dblauth) {
                         $("#step1").css("display","none")
