@@ -527,7 +527,7 @@ Ext.define("Core.ProjectServer",{
             }
             ,function(uid, next) {
                 if(uid) 
-                    mdl.user = {id: uid}
+                    mdl.user = {id: uid, token: params.gpc.token}
                 method = path[path.length-1]
                 if(!!mdl.run) mdl.run(method)
                 else
@@ -672,7 +672,7 @@ Ext.define("Core.ProjectServer",{
             }
             ,function(conn, call) {
                 conn.on('message', function(message) {
-                    me.wsOnMessage(conn, message);
+                    me.wsOnMessage(conn, message, request);
                 });
                 conn.on('close', function(reasonCode, description) {
                     me.wsOnClose(conn, reasonCode, description);
@@ -794,14 +794,14 @@ Ext.define("Core.ProjectServer",{
      * @param {Websocket.conn} conn
      * @param {String} message
      */
-    ,wsOnMessage: function(conn, message) {
+    ,wsOnMessage: function(conn, message, request) {
         var me = this
             ,data;
         if (message.type === 'binary') {
             try {
                 data = BSON.deserialize(message.binaryData);
             } catch(e) {}
-            me.prepareWsData(conn, data)
+            me.prepareWsData(conn, data, request)
         } else {            
             
             if(message.utf8Data.substr(0,5) == 'frame') {
@@ -813,7 +813,7 @@ Ext.define("Core.ProjectServer",{
                 try {
                     data = JSON.parse(data)    
                 } catch(e) {}
-                me.prepareWsData(conn, data)
+                me.prepareWsData(conn, data, request)
             }
         }
     }
@@ -856,7 +856,7 @@ Ext.define("Core.ProjectServer",{
         }
     }
     
-    ,prepareWsData: function(conn, data) {
+    ,prepareWsData: function(conn, data, request) {
         var me = this;
         if(data && data.data && data.data.scope && conn.callbacks) {
             for(var i = 0;i<conn.callbacks.length;i++) {
@@ -869,9 +869,10 @@ Ext.define("Core.ProjectServer",{
         } 
         
         if(data && data.data && data.data.model && data.data.action) {
+         
             var model = Ext.create(data.data.model, {
                     src: me.sources,
-                    user: {id: conn.userId},
+                    user: {id: conn.userId, token: request.resourceURL.query.token},
                     config: me.config
                 })
             if(!!model.initOnServer) model.initOnServer()            
