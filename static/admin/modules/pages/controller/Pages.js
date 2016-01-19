@@ -11,7 +11,7 @@ Ext.define('Desktop.modules.pages.controller.Pages', {
 
     launcher: {
         text: D.t('Pages'),
-        iconCls:'pages',
+        iconCls:'fa fa-sitemap',
         model: 'pages-PagesModel'
     },
     mainView: 'Desktop.modules.pages.view.Pages'

@@ -1,5 +1,7 @@
 Core = {}
 
+_TOKEN_GDRE_ = null;
+
 GlobalLoadingMask = document.createElement('div')
 GlobalLoadingMask.className = 'global-loading'
 //document.body.appendChild(GlobalLoadingMask)
@@ -49,6 +51,8 @@ Ext.onReady(function () {
     var id = localStorage.getItem('uid') || 0
         ,token = localStorage.getItem('token') || 0
         ,CommandLine = location.href.split('#')[1]
+
+    _TOKEN_GDRE_ = localStorage.getItem('token')    
     
     Ext.QuickTips.init();
     Ext.tip.Tip.prototype.minWidth = 'auto';
@@ -59,7 +63,7 @@ Ext.onReady(function () {
             ,host = uriArr[2]
             ,protocole = uriArr[0] == 'https:'? 'wss':'ws';
         Core.ws = Ext.create('Core.WSockets', {
-            url: protocole + "://" + host + "/?token=" + token + "&id=" + id ,
+            url: protocole + "://" + host + "/?token=" + encodeURIComponent(token) + "&id=" + id ,
             protocol: "yode-protocol",
             communicationType: 'event'
         })
@@ -128,7 +132,7 @@ Sess = {
             
     url: function(url, noslash) {            
         var id = localStorage.getItem('uid') || 0
-            ,token = localStorage.getItem('token') || 0;
+            ,token = encodeURIComponent(localStorage.getItem('token')) || 0;
         
         if(url.charAt(0) == '/') return url + (noslash? '':'/') + '?id='+id+'&token='+token;
         
