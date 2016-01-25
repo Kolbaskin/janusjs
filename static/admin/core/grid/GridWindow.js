@@ -295,16 +295,23 @@ Ext.define('Core.grid.GridWindow', {
      * Creating a context menu
      */
     ,buildContextMenu: function() {
-        return Ext.create('Ext.menu.Menu', {
-            items: [{
+        var items = [{
                 text: D.t('Copy'),
                 action: 'copyitem'
             },{
                 text: D.t('Paste'),
                 disabled: true,
                 action: 'pasteitem'
-            }
-            ]
+            }]
+            
+        if(this.sortManually)
+            items.splice(1,0, {
+                text: D.t('Cut'),
+                action: 'cutitem'
+            })
+        
+        return Ext.create('Ext.menu.Menu', {
+            items: items
         });
     }
     

@@ -908,6 +908,7 @@ Ext.define('Core.data.DataModel', {
       */
     ,reorder: function(params, callback) {
         var me = this;
+        
         [
             // get id param
             function(call) {

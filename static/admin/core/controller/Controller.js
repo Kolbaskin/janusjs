@@ -289,7 +289,7 @@ Ext.define('Core.controller.Controller', {
                      e.stopEvent();
                      if(win.menuContext) {
                          win.menuContext.record = record;
-                         win.menuContext.showAt(e.xy);
+                         win.menuContext.showAt(e.pageX, e.pageY);
                      }
                 }
             }
@@ -311,7 +311,8 @@ Ext.define('Core.controller.Controller', {
     ,popupMenuControls: function(win) {
         var me = this
         me.control(win.menuContext,{   
-            "[action=copyitem]": {click: function() {me.copyRecord(win.menuContext)}},
+            "[action=copyitem]": {click: function() {me.cutRecord(win.menuContext, 'copy')}},
+            "[action=cutitem]": {click: function() {me.cutRecord(win.menuContext, 'cut')}},
             "[action=pasteitem]": {click: function() {me.pasteRecord(win.menuContext)}}
         }) 
         
@@ -938,6 +939,16 @@ Ext.define('Core.controller.Controller', {
     
     /**
      * @method
+     * Cutting a data record
+     * @param {Ext.menu.Menu} menu
+     */
+    ,cutRecord: function(menu, action) {  
+        if(!Ext.clipboard) Ext.clipboard = {}
+        Ext.clipboard[Object.getPrototypeOf(this.model).$className] = {_id: menu.record.data._id, indx: menu.record.data.indx || 0, action: action};
+    }
+    
+    /**
+     * @method
      * Paste a data record
      * @param {Ext.menu.Menu} menu
      */
@@ -946,11 +957,25 @@ Ext.define('Core.controller.Controller', {
             ,modelName = Object.getPrototypeOf(this.model).$className;
         
         if(Ext.clipboard && Ext.clipboard[modelName]) {
-            me.model.copy(Ext.clipboard[modelName], function(data) {
-                me.refresh()
-                if(me.innerDetailForm) me.modifyInside({data: data}) 
-                else me.modify({data: data})
-            })
+            if(Ext.clipboard[modelName].action == 'copy')
+                me.model.copy(Ext.clipboard[modelName]._id, function(data) {
+                    me.refresh()
+                    if(me.innerDetailForm) me.modifyInside({data: data}) 
+                    else me.modify({data: data})
+                })
+            else
+            if(Ext.clipboard[modelName].action == 'cut') {
+                me.model.runOnServer('reorder', {
+                    records: [{
+                        _id: Ext.clipboard[modelName]._id,
+                        indx: Ext.clipboard[modelName].indx
+                    }],
+                    dropRec: menu.record.data,
+                    position: 'before'                        
+                }, function() {
+                    me.refresh();    
+                })    
+            }
         }
     }
     
