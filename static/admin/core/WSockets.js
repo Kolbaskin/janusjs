@@ -59,11 +59,18 @@ Ext.define('Core.WSockets', {
      * @param {Function} callback
      */
     ,request: function(data, callback) {
-        var me = this
-            ,event = 'request-' + Math.random();
+        var me = this;
+        
+        if(!me.isReady()) {
+            setTimeout(function() {
+                me.request(data, callback)
+            }, 100)
+            return;
+        }
+        var event = 'request-' + Math.random();
         if(!!callback) me.waitings[event] = callback  
         if(!!me.debug) me.debug('Request', data)
-
+        
         me.sendEventMessage(event, data)
     }
 
