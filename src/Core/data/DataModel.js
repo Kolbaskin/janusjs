@@ -560,6 +560,15 @@ Ext.define('Core.data.DataModel', {
             }
             
             ,function(ins, data, call) {
+                if(ins && !!me.beforeInsert) {
+                    me.beforeInsert(data, function(data) {
+                        call(ins, data);    
+                    })
+                } else
+                    call(ins, data)
+            }
+            
+            ,function(ins, data, call) {
             // Inserting 
                 if(ins) {
                     var _id = data._id  
@@ -572,8 +581,16 @@ Ext.define('Core.data.DataModel', {
                         var fff = function(permis) {
                             if(permis.add) {      
                                 me.db.collection(me.collection).insert(data, function(e, d) {
-                                    if(d && d[0]) call(d[0])
-                                    else {
+                                    if(d && d[0]) {
+                                        if(!!me.afterInsert) {
+                                            me.afterInsert(d[0], function(data) {
+                                                call(data);    
+                                            })    
+                                        } else {
+                                            call(d[0])
+                                        }
+                                        
+                                    } else {
                                         console.log('Insert error:', e)                                        
                                         callback({success:false});
                                         return;

@@ -27,6 +27,10 @@ Ext.define('Core.data.Store', {
     //buffered: true,
     leadingBufferZone: 50,
     pageSize: 25,  
+    
+    remoteSort: true,
+    remoteGroup: true,
+    remoteFilter: true,
       
     constructor: function(options) {                
         
