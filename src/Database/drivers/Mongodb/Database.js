@@ -62,4 +62,38 @@ Ext.define("Database.drivers.Mongodb.Database", {
         })
     }
     
+    ,checkCollection: function(model) {
+        var me = this;
+        
+        var col = me.db.collection(model.collection);
+        
+        col.indexInformation(function(e, indexes) {
+            model.fields.prepEach(
+                function(item, next) {
+                    if(item.filterable) {
+                        for(var i in indexes) {
+                            for(var j=0;j<indexes[i].length;j++) {
+                                if(indexes[i][j][0] == item.name) {
+                                    next(item)
+                                    return;    
+                                }
+                            }
+                        }                        
+                        col.createIndex(item.name, function() {
+                            console.log('create index:', model.collection+'.'+item.name)                            
+                            next(item)    
+                        })
+                        
+                    } else
+                        next(item)
+                },
+                function() {
+                    
+                }
+            )    
+        })
+        
+        
+    }
+    
 })
