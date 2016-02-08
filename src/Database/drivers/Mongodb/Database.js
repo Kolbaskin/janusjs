@@ -64,8 +64,10 @@ Ext.define("Database.drivers.Mongodb.Database", {
     
     ,checkCollection: function(model) {
         var me = this;
+
+        var col = Ext.isString(model.collection)? me.db.collection(model.collection): model.collection;
         
-        var col = me.db.collection(model.collection);
+        if(!col) return;
         
         col.indexInformation(function(e, indexes) {
             model.fields.prepEach(

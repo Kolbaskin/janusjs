@@ -8,6 +8,7 @@ Ext.define('Database.drivers.Mongodb.fieldtype.date', {
     extend: 'Database.fieldtype.date'
     
     ,getValueToSave: function(model, value, newRecord, oldRecord, name, callback) {      
-        callback(new Date(value))
+        if(value) callback(new Date(value))
+        else callback(null)
     }
 })
