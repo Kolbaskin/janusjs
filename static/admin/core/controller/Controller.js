@@ -286,11 +286,7 @@ Ext.define('Core.controller.Controller', {
                     if(me.innerDetailForm) me.modifyInside(rec)
                 },
                 itemcontextmenu: function(view, record, item, index, e, options){                
-                     e.stopEvent();
-                     if(win.menuContext) {
-                         win.menuContext.record = record;
-                         win.menuContext.showAt(e.pageX, e.pageY);
-                     }
+                    me.showContextMenu(win, e, record) 
                 }
             }
         })
@@ -300,6 +296,14 @@ Ext.define('Core.controller.Controller', {
         }
         me.setAccessControls(me.Permissions, win)
         me.buildChildPanels(win, {})
+    }
+    
+    ,showContextMenu: function(win, e, record) {
+        e.stopEvent();
+        if(win.menuContext) {
+            win.menuContext.record = record;
+            win.menuContext.showAt(e.pageX, e.pageY);
+        }    
     }
     
 
