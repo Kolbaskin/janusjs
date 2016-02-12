@@ -152,7 +152,7 @@ Ext.define("Database.Base", {
                     me.fieldTypes.string.getFilterValue(null, {value: filters[0]._value, operator: 'like'}, 'query', function(res) {
                         find.$or = []
                         model.fields.each(function(field) {
-                            if(field.filterable && field.type == 'string' && res && res.query) {
+                            if(field.filterable && res && res.query) {
                                 var cond = {}
                                 cond[field.name] = res.query
                                 find.$or.push(cond)
