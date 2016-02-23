@@ -457,9 +457,9 @@ Ext.define('Ext.ux.desktop.Desktop', {
         win.on({
             activate: function() {me.updateActiveWindow(1)},
             show: function() {me.updateActiveWindow(2)},
-            destroy: function() {
+            //destroy: function() {
                 
-            },//me.updateActiveWindow(3)},
+            //},//me.updateActiveWindow(3)},
             minimize: me.minimizeWindow,
             destroy: me.onWindowClose,
             scope: me

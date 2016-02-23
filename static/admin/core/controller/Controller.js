@@ -690,7 +690,7 @@ Ext.define('Core.controller.Controller', {
      */
     ,save: function(win, closewin, callback) {
         var me = this,
-            form = win.down('form');
+            form = win.down('form'),
             data = {};
         
         var sb1 = win.down('[action=formsave]')

@@ -8,8 +8,7 @@
  * Server side data model
  */
  
-var excelbuilder = require('msexcel-builder')
-    ,crypto = require('crypto')
+var crypto = require('crypto')
     ,BSON = require('bson').pure().BSON;
  
 Ext.define('Core.data.DataModel', {
@@ -1335,6 +1334,7 @@ Ext.define('Core.data.DataModel', {
     
     ,export2xls: function(data, cb) {
         var me = this
+            ,excelbuilder = require('msexcel-builder')
             ,fName
             ,workbook
             ,cols = me.fields.length
