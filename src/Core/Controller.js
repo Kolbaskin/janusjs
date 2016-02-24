@@ -110,6 +110,18 @@ Ext.define('Core.Controller',{
         }
         this.destroy()
     }
+    
+    ,redirect: function(url, code) {        
+        var me = this
+            ,headers = {'Content-Type': 'text/html;charset=' + this.charset}
+            
+        if(!code) code = 302         
+        this.response.writeHead(code, http_codes.httpCodes[code], {
+               'Location': url 
+        });
+        this.response.end()
+        this.destroy()
+    }
 
     /**
      * @method

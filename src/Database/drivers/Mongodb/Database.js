@@ -12,7 +12,7 @@ Ext.define("Database.drivers.Mongodb.Database", {
     extend: 'Database.Base'
 
     ,constructor: function(cfg) {
-        this.connect(cfg)  
+        this.connect(cfg, cfg.callback || null)  
         this.type = 'nosql'
         this.name = 'mongodb'
         

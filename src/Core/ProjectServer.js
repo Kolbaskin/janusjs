@@ -195,8 +195,9 @@ Ext.define("Core.ProjectServer",{
      * @param {Function} callback 
      */
     ,dbConnect: function(callback) {
-        this.sources.db = Ext.create("Database.drivers.Mongodb.Database", this.config.mongo);
-        callback()
+        this.sources.db = Ext.create("Database.drivers.Mongodb.Database", Ext.apply({
+            callback: callback
+        },this.config.mongo));        
     }
     
     /**
