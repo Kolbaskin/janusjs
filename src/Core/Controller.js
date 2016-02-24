@@ -140,7 +140,7 @@ Ext.define('Core.Controller',{
      * Ending http response
      * @param {String} data
      */
-    ,end: function(data) {
+    ,end: function(data, mode) {
         if(!this.headers) this.headers['Content-Type'] = 'text/html;charset=' + this.charset
         
         if(this.response && this.response.Cookie) {
@@ -151,7 +151,8 @@ Ext.define('Core.Controller',{
         }
         
         this.response.writeHead(this.headCode, this.headStatus, this.headers); 
-        this.response.end(data)
+        if(mode) this.response.end(data, mode);
+        else this.response.end(data);
         this.destroy()
     }
     
@@ -257,7 +258,7 @@ Ext.define('Core.Controller',{
         if(!type) type = 'jpeg'
         this.headers['Content-Type'] = 'image/' + type
         this.headers['Content-Length'] = data.length
-        this.end(data)        
+        this.end(data, 'binary')        
     }
     
     /**
