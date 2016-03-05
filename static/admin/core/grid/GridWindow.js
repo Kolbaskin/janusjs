@@ -101,7 +101,7 @@ Ext.define('Core.grid.GridWindow', {
      * @method
      * Creating d-n-d config
      */
-    ,buildViewConfig: function() {
+    ,buildViewDndConfig: function() {
         var me = this
         return {
             trackOver: false,
@@ -135,6 +135,10 @@ Ext.define('Core.grid.GridWindow', {
                 }
             }
         }
+    }
+    
+    ,buildViewConfig: function() {
+        return {}
     }
     
     /**
@@ -203,7 +207,9 @@ Ext.define('Core.grid.GridWindow', {
             
         }
         
-        if(this.sortManually) grid.viewConfig = this.buildViewConfig()
+        grid.viewConfig = this.buildViewConfig()
+        
+        if(this.sortManually) grid.viewConfig = Ext.apply(grid.viewConfig,this.buildViewDndConfig())
         
         if(this.filterbar) { 
             grid.columns = {

@@ -535,9 +535,14 @@ Ext.define('Core.data.DataModel', {
                                         data.mtime = new Date()
                                         data = me.setModifyTime(data)
                                         
-                                        me.db.collection(me.collection).update({_id: _id}, {$set: data}, function(e,d) {
+                                        me.db.collection(me.collection).update({_id: _id}, {$set: data}, function(e,d) {                                            
                                             data._id = _id
-                                            call(false, data)
+                                            if(!!me.afterUpdate) {
+                                                me.afterUpdate(data, function(data) {
+                                                    call(false, data)
+                                                })
+                                            } else
+                                                call(false, data)
                                         })
                                     }, fields)
                                 } else
@@ -1382,7 +1387,6 @@ Ext.define('Core.data.DataModel', {
                     }
                     l++;
                 })
-                
                 workbook.save(function(ok){
                     cb({file: fName})
                 });

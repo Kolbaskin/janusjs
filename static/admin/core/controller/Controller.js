@@ -321,7 +321,8 @@ Ext.define('Core.controller.Controller', {
         }) 
         
         win.menuContext.on('show', function(m) {
-            m.down("[action=pasteitem]").setDisabled(false)    
+            var e = m.down("[action=pasteitem]");
+            if(e) e.setDisabled(false)    
         })
         
     }

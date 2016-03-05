@@ -232,13 +232,13 @@ Ext.define('Core.data.Store', {
      * The action for updating
      * @paramn {Object} data
      */
-    ,updateData: function(data) {        
+    ,updateData: function(data) {       
         var rows = this.data.items;
         for(var i=0;i<rows.length;i++) {
             for(var j=0;j<data.length;j++) {
                 if(rows[i].data._id == data[j]._id) {
                     for(var k in rows[i].data) {
-                        if(data[j][k] && data[j][k] != rows[i].data[k]) rows[i].data[k] = data[j][k]
+                        if(data[j][k] !== undefined && data[j][k] != rows[i].data[k]) rows[i].data[k] = data[j][k]
                     }
                     rows[i].commit()
                     break;

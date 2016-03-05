@@ -215,7 +215,7 @@ Ext.define('Core.data.DataModel', {
      * Downloading export file.
      * @param {Object} filters
      */
-    ,exportData: function(filters) {
+    ,exportData: function(filters, cb) {
         var me = this, filt = []
         if(filters && filters.items && filters.items.length) {
             for(var i=0;i<filters.items.length;i++) {
@@ -229,7 +229,8 @@ Ext.define('Core.data.DataModel', {
         }
         me.runOnServer('exportData', {filters: filt}, function(data) {          
             if(data && data.file) 
-                location = '/Admin.Data.getXls/?file=' + encodeURIComponent(data.file) + '&name=' + me.collection + '.xlsx'    
+                location = '/Admin.Data.getXls/?file=' + encodeURIComponent(data.file) + '&name=' + me.collection + '.xlsx'
+            if(!!cb) cb()    
         })
     }
     /**
