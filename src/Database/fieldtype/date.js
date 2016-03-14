@@ -22,7 +22,7 @@ Ext.define('Database.fieldtype.date', {
                 d1[filter.property] = {}
                 d1[filter.property].$gte = dt;
                 d2[filter.property] = {}
-                d2[filter.property].$lt = new Date(dt.getTime() + 86400000);
+                d2[filter.property].$lte = new Date(dt.getTime() + 86400000);
                 param.$and = [d1,d2]
                 
             } else {            
