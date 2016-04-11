@@ -186,7 +186,7 @@ Ext.define("Database.Base", {
                     var cond = {}
                    
                     for(var j=0;j<model.fields.length;j++) {
-                        if(filter.property && model.fields[j].name == filter.property.split('.')[0] || model.fields[j].mapping == filter.property) {
+                        if(filter.property && filter.value && model.fields[j].name == filter.property.split('.')[0] || model.fields[j].mapping == filter.property) {
                             var fldTp = me.fieldTypes.Field
                             if(model.fields[j].type && me.fieldTypes[model.fields[j].type]) 
                                 fldTp = me.fieldTypes[model.fields[j].type]    
